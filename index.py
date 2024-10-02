@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Depends
+import fastapi
 from pydantic import BaseModel
 from sqlalchemy.sql.annotation import Annotated
 
-app = FastAPI()
+app = fastapi.FastAPI()
 
 
 class STaskAdd(BaseModel): #pydantic схема
@@ -16,7 +16,7 @@ class STask(STaskAdd):
 
 @app.post("/tasks") #добавляем таски
 async def add_task(
-        task: Annotated[STaskAdd, Depends()],
+        task: Annotated[STaskAdd, fastapi.Depends()],
 ):
    tasks.append(task)
    return {"ok": True}
